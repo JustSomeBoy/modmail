@@ -325,13 +325,13 @@ class Modmail(commands.Bot):
         if isinstance(message.channel, discord.DMChannel):
             await self.process_modmail(message)
             
-    def on_member_join(self, member):
+    async def on_member_join(self, member):
         try:
             embed = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description="Please read our rules before chatting!", color=0xFF4500)
             embed.set_thumbnail(url='http://apk.co/images/nebulous-187.png')
             embed.add_field(name='\u200b', value="For Support, **Message ME** Back!", inline=False)
             embed.set_footer(text="This will directly connect you to Moderators.")
-            await member.send_message(embed=embed)
+            await member.send(embed=embed)
         except discord.errors.Forbidden:
             print("A user has his PMs disabled")
 
