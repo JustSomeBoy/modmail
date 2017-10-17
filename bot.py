@@ -331,7 +331,7 @@ class Modmail(commands.Bot):
             embed.set_thumbnail(url='http://apk.co/images/nebulous-187.png')
             embed.add_field(name='\u200b', value="For Support, **Message ME** Back!", inline=False)
             embed.set_footer(text="This will directly connect you to Moderators.")
-            await member.send(embed=embed)
+            await member.send_message(embed=embed)
         except discord.errors.Forbidden:
             print("A user has his PMs disabled")
 
