@@ -337,7 +337,7 @@ class Modmail(commands.Bot):
     
         channel = member.server.get_channel(366731334174900238)
     
-        sst = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description='\u200b', color=0xFF4500)
+        sst = discord.Embed(title='\u200b',description="__**Welcome To The Official Nebulous Discord Server!**__", color=0xFF4500)
         sst.set_author(name=str(author), icon_url=author.avatar_url)
         sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
         sst.set_footer(text="Please read the rules before chatting. Have a great day!")
