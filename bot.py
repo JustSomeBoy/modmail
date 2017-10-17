@@ -335,7 +335,7 @@ class Modmail(commands.Bot):
         except discord.errors.Forbidden:
             print("A user has his PMs disabled")
     
-            channel = discord.utils.get(ctx.guild.channels, id=366731334174900238)
+            channel = discord.utils.get(member.server.get_channel, id=366731334174900238)
     
             sst = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description='\u200b', color=0xFF4500)
             sst.set_author(name=str(author), icon_url=author.avatar_url)
