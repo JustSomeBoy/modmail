@@ -139,7 +139,7 @@ class Modmail(commands.Bot):
 
     def help_embed(self):
         em = discord.Embed(color=0x00FFFF)
-        em.set_author(name='Nebuous - Help', icon_url=self.user.avatar_url)
+        em.set_author(name='Nebulous - Help', icon_url=self.user.avatar_url)
         em.description = 'Nebulous Support Bot, Connect Directly To Mods' 
                  
 
