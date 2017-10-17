@@ -341,7 +341,7 @@ class Modmail(commands.Bot):
     sst.set_author(name=str(author), icon_url=author.avatar_url)
     sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
     sst.set_footer(text="Please read the rules before chatting. Have a great day!")
-    await msgchannel.send(embed=sst)
+    await ctx.msgchannel.send(embed=sst)
 
     @commands.command()
     async def reply(self, ctx, *, msg):
