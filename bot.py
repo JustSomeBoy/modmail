@@ -299,7 +299,7 @@ class Modmail(commands.Bot):
         author = message.author
         topic = f'User ID: {author.id}'
         channel = discord.utils.get(guild.text_channels, topic=topic)
-        categ = discord.utils.get(guild.categories, name=='Support')
+        categ = discord.utils.get(guild.categories, name='Support')
 
         em = discord.Embed(title='Thanks you for messaging me!')
         em.description = 'Our moderators will respond to you as soon as possible!'
