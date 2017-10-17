@@ -51,7 +51,7 @@ class Modmail(commands.Bot):
 
     @property
     def token(self):
-        '''Returns your token wherever it is'''
+        '''Nothing'''
         try:
             with open('config.json') as f:
                 config = json.load(f)
@@ -73,7 +73,7 @@ class Modmail(commands.Bot):
 
     @staticmethod
     def run_wizard():
-        '''Wizard for first start'''
+        '''First start'''
         print('------------------------------------------')
         token = input('Enter your token:\n> ')
         print('------------------------------------------')
@@ -102,8 +102,8 @@ class Modmail(commands.Bot):
 
     async def on_connect(self):
         print('---------------')
-        print('Modmail connected!')
-        game = discord.Game(name='DM to contact mods!')
+        print('Connected!')
+        game = discord.Game(name='Message ME For Help')
         await self.change_presence(game=game)
 
     @property
@@ -112,13 +112,11 @@ class Modmail(commands.Bot):
         return int(from_heroku) if from_heroku else GUILD_ID
 
     async def on_ready(self):
-        '''Bot startup, sets uptime.'''
+        '''Startup.'''
         self.guild = discord.utils.get(self.guilds, id=self.guild_id)
         print(textwrap.dedent(f'''
         ---------------
         Client is ready!
-        ---------------
-        Author: verixx#7220
         ---------------
         Logged in as: {self.user}
         User ID: {self.user.id}
@@ -126,7 +124,7 @@ class Modmail(commands.Bot):
         '''))
 
     def overwrites(self, ctx, modrole=None):
-        '''Permision overwrites for the guild.'''
+        '''Perms'''
         overwrites = {
             ctx.guild.default_role: discord.PermissionOverwrite(read_messages=False)
         }
@@ -141,48 +139,41 @@ class Modmail(commands.Bot):
 
     def help_embed(self):
         em = discord.Embed(color=0x00FFFF)
-        em.set_author(name='Mod Mail - Help', icon_url=self.user.avatar_url)
-        em.description = 'This bot is a python implementation of a stateless "Mod Mail" bot. ' \
-                         'Made by verixx and improved by the suggestions of others. This bot ' \
-                         'saves no data and utilises channel topics for storage and syncing.' 
+        em.set_author(name='Nebuous - Help', icon_url=self.user.avatar_url)
+        em.description = 'Nebulous Support Bot, Connect Directly To Mods' 
                  
 
-        cmds = '`m.setup [modrole] <- (optional)` - Command that sets up the bot.\n' \
-               '`m.reply <message...>` - Sends a message to the current thread\'s recipient.\n' \
-               '`m.close` - Closes the current thread and deletes the channel.\n' \
-               '`m.disable` - Closes all threads and disables modmail for the server.\n' \
-               '`m.customstatus` - Sets the Bot status to whatever you want.'
+        cmds = '`$reply <message...>` - Sends a message back to the user.\n' \
+               '`$close` - Closes the current conversation and deletes the channel.\n' \
 
-        warn = 'Do not manually delete the category or channels as it will break the system. ' \
-               'Modifying the channel topic will also break the system.'
+        warn = 'Please use $close to close conversations.'
         em.add_field(name='Commands', value=cmds)
         em.add_field(name='Warning', value=warn)
-        em.add_field(name='Github', value='https://github.com/verixx/modmail')
-        em.set_footer(text='Star the repository to unlock hidden features!')
+        em.set_footer(text='Ask Shadow for command help.')
 
         return em
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def setup(self, ctx, *, modrole: discord.Role=None):
-        '''Sets up a server for modmail'''
-        if discord.utils.get(ctx.guild.categories, name='Mod Mail'):
+        '''Sets up the server'''
+        if discord.utils.get(ctx.guild.categories, name='Support'):
             return await ctx.send('This server is already set up.')
 
         categ = await ctx.guild.create_category(
-            name='Mod Mail', 
+            name='Support', 
             overwrites=self.overwrites(ctx, modrole=modrole)
             )
         await categ.edit(position=0)
-        c = await ctx.guild.create_text_channel(name='bot-info', category=categ)
+        c = await ctx.guild.create_text_channel(name='information', category=categ)
         await c.send(embed=self.help_embed())
         await ctx.send('Successfully set up server.')
 
     @commands.command()
     @commands.has_permissions(administrator=True)
     async def disable(self, ctx):
-        '''Close all threads and disable modmail.'''
-        categ = discord.utils.get(ctx.guild.categories, name='Mod Mail')
+        '''Disables bot.'''
+        categ = discord.utils.get(ctx.guild.categories, name='Support')
         if not categ:
             return await ctx.send('This server is not set up.')
         for category, channels in ctx.guild.by_category():
@@ -191,21 +182,21 @@ class Modmail(commands.Bot):
                     if 'User ID:' in str(chan.topic):
                         user_id = int(chan.topic.split(': ')[1])
                         user = self.get_user(user_id)
-                        await user.send(f'**{ctx.author}** has closed this modmail session.')
+                        await user.send(f'**{ctx.author}** has closed the conversation.')
                     await chan.delete()
         await categ.delete()
-        await ctx.send('Disabled modmail.')
+        await ctx.send('Disabled.')
 
 
     @commands.command(name='close')
     @commands.has_permissions(manage_guild=True)
     async def _close(self, ctx):
         if 'User ID:' not in str(ctx.channel.topic):
-            return await ctx.send('This is not a modmail thread.')
+            return await ctx.send('This is not a conversation.')
         user_id = int(ctx.channel.topic.split(': ')[1])
         user = self.get_user(user_id)
-        em = discord.Embed(title='Thread Closed')
-        em.description = f'**{ctx.author}** has closed this modmail session.'
+        em = discord.Embed(title='Conversation Closed')
+        em.description = f'**{ctx.author}** has closed the conversation.'
         em.color = discord.Color.red()
         try:
             await user.send(embed=em)
@@ -215,27 +206,26 @@ class Modmail(commands.Bot):
 
     @commands.command()
     async def ping(self, ctx):
-        """Pong! Returns your websocket latency."""
+        """Returns Pong."""
         em = discord.Embed()
-        em.title ='Pong! Websocket Latency:'
+        em.title ='Pong!'
         em.description = f'{self.ws.latency * 1000:.4f} ms'
         em.color = 0x00FF00
         await ctx.send(embed=em)
 
     def guess_modroles(self, ctx):
-        '''Finds roles if it has the manage_guild perm'''
+        '''Ignore'''
         for role in ctx.guild.roles:
-            if role.permissions.manage_guild:
+            if role.permissions.manage_messages:
                 yield role
 
     def format_info(self, user):
-        '''Get information about a member of a server
-        supports users from the guild or not.'''
+        '''Get information about Server.'''
         server = self.guild
         member = self.guild.get_member(user.id)
         avi = user.avatar_url
         time = datetime.datetime.utcnow()
-        desc = 'Modmail thread started.'
+        desc = 'Conversation has started.'
         color = 0
 
         if member:
@@ -309,10 +299,10 @@ class Modmail(commands.Bot):
         author = message.author
         topic = f'User ID: {author.id}'
         channel = discord.utils.get(guild.text_channels, topic=topic)
-        categ = discord.utils.get(guild.categories, name='Mod Mail')
+        categ = discord.utils.get(guild.categories, name='=Support')
 
-        em = discord.Embed(title='Thanks for the message!')
-        em.description = 'The moderation team will get back to you as soon as possible!'
+        em = discord.Embed(title='Thanks you for messaging me!')
+        em.description = 'Our moderators will respond to you as soon as possible!'
         em.color = discord.Color.green()
 
         if channel is not None:
@@ -339,7 +329,7 @@ class Modmail(commands.Bot):
     async def reply(self, ctx, *, msg):
         categ = discord.utils.get(ctx.guild.categories, id=ctx.channel.category_id)
         if categ is not None:
-            if categ.name == 'Mod Mail':
+            if categ.name == 'Support':
                 if 'User ID:' in ctx.channel.topic:
                     ctx.message.content = msg
                     await self.process_reply(ctx.message)
@@ -354,7 +344,7 @@ class Modmail(commands.Bot):
     async def block(self, ctx):
         categ = discord.utils.get(ctx.guild.categories, id=ctx.channel.category_id)
         if categ is not None:
-            if categ.name == 'Mod Mail':
+            if categ.name == 'Support':
                 await self.get_user(int(ctx.channel.topic.split(': ')[1])).block()
                 await ctx.channel.delete()
                 
