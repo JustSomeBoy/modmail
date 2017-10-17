@@ -334,12 +334,14 @@ class Modmail(commands.Bot):
             await member.send(embed=embed)
         except discord.errors.Forbidden:
             print("A user has his PMs disabled")
-            
+    
+    msgchannel = discord.utils.get(ctx.guild.channels, id=366731334174900238)
+    
     sst = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description='\u200b', color=0xFF4500)
     sst.set_author(name=str(author), icon_url=author.avatar_url)
     sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
     sst.set_footer(text="Please read the rules before chatting. Have a great day!")
-    await ctx.send(embed=sst)
+    await msgchannel.send(embed=sst)
 
     @commands.command()
     async def reply(self, ctx, *, msg):
