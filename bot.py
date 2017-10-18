@@ -329,10 +329,10 @@ class Modmail(commands.Bot):
         
         channel = member.guild.get_channel(366731334174900238)
         count = member.guild.member_count
-        sst = discord.Embed(description = "__**🎃 Welcome To The Official Nebulous Discord Server! 🎃**__", color=0x00FFFF)
+        sst = discord.Embed(title='\u200b', description = "__**🎃 Welcome To The Official Nebulous Discord Server! 🎃**__", color=0x00FFFF)
         sst.set_author(name=str(member), icon_url=member.avatar_url)
         sst.set_thumbnail(url=member.avatar_url)
-        sst.add_field(name='\u200b', value=f"👏 You are user **# {count}** 👏", inline=False)
+        sst.add_field(name='\u200b', value=f"👏 You are user **#{count}** 👏", inline=False)
         sst.set_footer(text="For Support, Please Message ME! Have a Great Day! ⛄")
         await channel.send(member.mention, embed=sst)
         
