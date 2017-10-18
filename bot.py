@@ -336,12 +336,12 @@ class Modmail(commands.Bot):
             print("A user has his PMs disabled")
 
             
-         channel = member.guild.get_channel(366731334174900238)
-         sst = discord.Embed(description="Welcome To The Official Nebulous Discord Server!", color=0xFF4500)
-         sst.set_author(name=str(member), icon_url=member.avatar_url)
-         sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
-         sst.set_footer(text="Please read the rules before chatting. Have a great day!")
-         await channel.send(embed=sst)
+            channel = member.guild.get_channel(366731334174900238)
+            sst = discord.Embed(description="Welcome To The Official Nebulous Discord Server!", color=0xFF4500)
+            sst.set_author(name=str(member), icon_url=member.avatar_url)
+            sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
+            sst.set_footer(text="Please read the rules before chatting. Have a great day!")
+            await channel.send(embed=sst)
             
             
     @commands.command()
