@@ -326,6 +326,14 @@ class Modmail(commands.Bot):
             await self.process_modmail(message)
                   
     async def on_member_join(self, member):
+        
+        channel = member.guild.get_channel(366731334174900238)
+        sst = discord.Embed(description="Welcome To The Official Nebulous Discord Server!", color=0xFF4500)
+        sst.set_author(name=str(member), icon_url=member.avatar_url)
+        sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
+        sst.set_footer(text="Please read the rules before chatting. Have a great day!")
+        await channel.send(embed=sst)
+        
         try:
             embed = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description="Please read our rules before chatting!", color=0xFF4500)
             embed.set_thumbnail(url='http://apk.co/images/nebulous-187.png')
@@ -336,12 +344,7 @@ class Modmail(commands.Bot):
             print("A user has his PMs disabled")
 
             
-            channel = member.guild.get_channel(366731334174900238)
-            sst = discord.Embed(description="Welcome To The Official Nebulous Discord Server!", color=0xFF4500)
-            sst.set_author(name=str(member), icon_url=member.avatar_url)
-            sst.add_field(name='\u200b', value="For Support, Please Message Me!!", inline=False)
-            sst.set_footer(text="Please read the rules before chatting. Have a great day!")
-            await channel.send(embed=sst)
+      
             
             
     @commands.command()
