@@ -189,7 +189,7 @@ class Modmail(commands.Bot):
 
 
     @commands.command(name='close')
-    @commands.has_permissions(manage_guild=True)
+    @commands.has_permissions(manage_messages=True)
     async def _close(self, ctx):
         if 'User ID:' not in str(ctx.channel.topic):
             return await ctx.send('This is not a conversation.')
