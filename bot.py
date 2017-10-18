@@ -216,7 +216,7 @@ class Modmail(commands.Bot):
     def guess_modroles(self, ctx):
         '''Ignore'''
         for role in ctx.guild.roles:
-            if role.permissions.manage_messages:
+            if role.permissions.manage_guild:
                 yield role
 
     def format_info(self, user):
