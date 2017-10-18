@@ -334,10 +334,6 @@ class Modmail(commands.Bot):
             await member.send(embed=embed)
         except discord.errors.Forbidden:
             print("A user has his PMs disabled")
-    
-            channel = member.guild.get_channel(366731334174900238)
-
-            await channel.send("First Test")
 
     @commands.command()
     async def reply(self, ctx, *, msg):
