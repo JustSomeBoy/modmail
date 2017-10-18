@@ -324,8 +324,7 @@ class Modmail(commands.Bot):
         await self.process_commands(message)
         if isinstance(message.channel, discord.DMChannel):
             await self.process_modmail(message)
-            
-    @client.event        
+                  
     async def on_member_join(self, member):
         try:
             embed = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description="Please read our rules before chatting!", color=0xFF4500)
