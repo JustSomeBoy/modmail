@@ -328,15 +328,15 @@ class Modmail(commands.Bot):
     async def on_member_join(self, member):
         
         channel = member.guild.get_channel(366731334174900238)
-        sst = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__", url='https://discord.gg/dJmMujM', description = "You are user #", color=0x00FFFF)
+        sst = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__", description = "**You are user #**", color=0x00FFFF)
         sst.set_author(name=str(member), icon_url=member.avatar_url)
-        sst.add_field(name='\u200b', value="For Support, Please Message Me!", inline=False)
-        sst.set_footer(text="Please read the rules before chatting. Have a great day!")
+        sst.add_field(name='\u200b', value="__**For Support, Please Message Me!**__", inline=False)
+        sst.set_footer(text="Please Read #rules Before Chatting. Have a Great Day! :)")
         await channel.send(member.mention)
         await channel.send(embed=sst)
         
         try:
-            embed = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__",description="Please read our rules before chatting!", color=0xFF4500)
+            embed = discord.Embed(title="__**Welcome To The Official Nebulous Discord Server!**__", description="Please read our rules before chatting!", color=0xFF4500)
             embed.set_thumbnail(url='http://apk.co/images/nebulous-187.png')
             embed.add_field(name='\u200b', value="For Support, **Message ME** Back!", inline=False)
             embed.set_footer(text="This will directly connect you to Moderators.")
