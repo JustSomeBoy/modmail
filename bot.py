@@ -328,10 +328,11 @@ class Modmail(commands.Bot):
     async def on_member_join(self, member):
         
         channel = member.guild.get_channel(366731334174900238)
+        count = member.guild.member_count
         sst = discord.Embed(description = "__**Welcome To The Official Nebulous Discord Server! 😊**__", color=0x00FFFF)
         sst.set_author(name=str(member), icon_url=member.avatar_url)
         sst.set_thumbnail(url=member.avatar_url)
-        sst.add_field(name='\u200b', value=f"You are user # {Guild.member_count}", inline=False)
+        sst.add_field(name='\u200b', value=f"You are user # {count}", inline=False)
         sst.add_field(name='\u200b', value="__**For Support, Please Message Me!**__", inline=False)
         sst.set_footer(text="Please Read #rules Before Chatting. Have a Great Day! ⛄")
         await channel.send(member.mention, embed=sst)
