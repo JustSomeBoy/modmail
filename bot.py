@@ -329,7 +329,7 @@ class Modmail(commands.Bot):
         
         channel = member.guild.get_channel(366731334174900238)
         count = member.guild.member_count
-        sst = discord.Embed(title='\u200b', description = f"👏 You are user **#{count}** 👏", color=0x00FFFF)
+        sst = discord.Embed(title='\u200b', description = f"Welcome to the Server user **#{count}** 👏", color=0x00FFFF)
         sst.set_author(name=str(member), icon_url=member.avatar_url)
         sst.set_thumbnail(url=member.avatar_url)
         sst.set_footer(text="For Support, Please Message ME! Have a Great Day! ⛄")
